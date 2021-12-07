@@ -90,7 +90,7 @@ jobs:
           SOLR_CORE_STATUS=""
           # validate ckan core
           while [[ "$SOLR_CORE_STATUS" != "OK" ]]; do
-            SOLR_CORE_STATUS=$(jq -r ".status" <<< $(curl -s --connect-timeout 5 http://localhost:8983/solr/ckan/admin/ping?wt=json))
+            SOLR_CORE_STATUS="$(jq -r ".status" <<< $(curl -s http://localhost:8983/solr/ckan/admin/ping?wt=json))"
             echo "solr core status: $SOLR_CORE_STATUS - retry in 1 seconds if not OK ..."
             sleep 1s
           done
@@ -98,6 +98,7 @@ jobs:
           curl -s http://localhost:8983/solr/ckan/admin/ping?wt=json
           # print solr logs
           docker logs solr
+        shell: bash
 
       - name: stop solr container
         run: |
