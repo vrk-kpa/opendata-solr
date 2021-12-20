@@ -5,28 +5,109 @@ on:
     branches:
       - master
 
+env:
+  DOCKER_BUILDKIT: 1
+
 jobs:
   test-build:
     name: test-build
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - name: checkout
         uses: actions/checkout@v2
 
       - name: setup docker buildx
         uses: docker/setup-buildx-action@v1
+      
+      # NOTE: we use local images in test workflows
+      #       which is why cache is local also
+      - name: cache docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ hashFiles('**/Dockerfile') }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
 
       - name: build docker image
         uses: docker/build-push-action@v2
         with:
           context: .
           push: false
-          tags: |
-            opendata/solr:${{ github.sha }}
-            opendata/solr:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          tags: opendata/solr:latest
+          outputs: type=docker,dest=/tmp/opendata-solr-latest.tar
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+      
+      - name: upload docker image
+        uses: actions/upload-artifact@v2
+        with:
+          name: opendata-solr-latest
+          path: /tmp/opendata-solr-latest.tar
+
+      # NOTE: Temp fix
+      #       https://github.com/docker/build-push-action/issues/252
+      #       https://github.com/moby/buildkit/issues/1896
+      - name: move docker cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+  
+  test-image:
+    name: test-image
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    concurrency:
+      group: ${{ github.ref }}
+    needs:
+      - test-build
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: install apt packages
+        run: sudo apt-get install -yq jq
+
+      - name: setup docker buildx
+        uses: docker/setup-buildx-action@v1
+      
+      - name: download docker image
+        uses: actions/download-artifact@v2
+        with:
+          name: opendata-solr-latest
+          path: /tmp
+
+      - name: load docker image
+        run: |
+          docker load --input /tmp/opendata-solr-latest.tar
+
+      - name: start solr container
+        run: |
+          docker run --name solr -t -d -p 8983:8983 opendata/solr:latest
+
+      - name: validate solr cores
+        timeout-minutes: 1
+        run: |
+          SOLR_CORE_STATUS=""
+          # validate ckan core
+          while [[ "$SOLR_CORE_STATUS" != "OK" ]]; do
+            SOLR_CORE_STATUS="$(jq -r ".status" <<< $(curl -s http://localhost:8983/solr/ckan/admin/ping?wt=json))"
+            echo "solr core status: $SOLR_CORE_STATUS - retry in 1 seconds if not OK ..."
+            sleep 1s
+          done
+          # print core status
+          curl -s http://localhost:8983/solr/ckan/admin/ping?wt=json
+          # print solr logs
+          docker logs solr
+        shell: bash
+
+      - name: stop solr container
+        run: |
+          docker stop solr
 
   test-release:
     name: test-release
