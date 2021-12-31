@@ -1,5 +1,11 @@
 FROM solr:6.6.6
 
+# switch from solr to root user
+USER root
+
+# upgrade system
+RUN apt-get update -yq && apt-get upgrade -yq
+
 # setup env vars
 ENV SOLR_CORE ckan
 ENV SOLR_VERSION 6.6.6
@@ -21,7 +27,8 @@ ADD https://raw.githubusercontent.com/apache/lucene-solr/releases/lucene-solr/$S
 # create core.properties
 RUN echo name=$SOLR_CORE > /opt/solr/server/solr/$SOLR_CORE/core.properties
 
-# setup users and permissions
-USER root
+# setup permissions
 RUN chown -R "$SOLR_USER:$SOLR_USER" /opt/solr/server/solr/$SOLR_CORE
+
+# switch from root to solr user
 USER $SOLR_USER:$SOLR_USER
