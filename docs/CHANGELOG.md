@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/vrk-kpa/opendata-solr/compare/v1.0.0...v1.0.1) (2021-12-31)
+
+
+### Bug Fixes
+
+* **ci:** simplify release job to mitigate random AWS OIDC problems ([58e839f](https://github.com/vrk-kpa/opendata-solr/commit/58e839fdcf8a9bc61a3738948615bad2d5123468))
+* upgrade system on build ([b326e8a](https://github.com/vrk-kpa/opendata-solr/commit/b326e8ae063a4a72d6813d726a7e204cdbc162b2))
+
 # 1.0.0 (2021-12-02)
 
 
