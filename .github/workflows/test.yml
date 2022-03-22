@@ -26,7 +26,7 @@ jobs:
       # NOTE: we use local images in test workflows
       #       which is why cache is local also
       - name: cache docker layers
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ hashFiles('**/Dockerfile') }}
