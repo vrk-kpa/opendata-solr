@@ -44,7 +44,7 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
       
       - name: upload docker image
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: opendata-solr-latest
           path: /tmp/opendata-solr-latest.tar
