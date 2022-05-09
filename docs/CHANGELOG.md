@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/vrk-kpa/opendata-solr/compare/v1.0.1...v1.0.2) (2022-05-09)
+
+
+### Bug Fixes
+
+* **AV-1676:** Add fields for spatial search in schema ([75a8f59](https://github.com/vrk-kpa/opendata-solr/commit/75a8f59aebccedd3d1b49497727fc909ad0dbec1))
+
 ## [1.0.1](https://github.com/vrk-kpa/opendata-solr/compare/v1.0.0...v1.0.1) (2021-12-31)
 
 
