@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/vrk-kpa/opendata-solr/compare/v1.1.0...v1.1.1) (2022-06-07)
+
+
+### Bug Fixes
+
+* **AV-1556:** Update Solr module paths for 9.0.0 ([d1fdd85](https://github.com/vrk-kpa/opendata-solr/commit/d1fdd858e1793282210c375ae6aad48d5f95e1cb))
+
 # [1.1.0](https://github.com/vrk-kpa/opendata-solr/compare/v1.0.2...v1.1.0) (2022-06-07)
 
 
