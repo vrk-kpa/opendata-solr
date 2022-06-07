@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/vrk-kpa/opendata-solr/compare/v1.0.2...v1.1.0) (2022-06-07)
+
+
+### Features
+
+* **AV-1556:** Upgrade Solr to version 8.11.1 ([32fa932](https://github.com/vrk-kpa/opendata-solr/commit/32fa9328a14307739a0da66f37735afbf01512bc))
+* **AV-1556:** Upgrade Solr to version 9.0.0 ([42fbdf9](https://github.com/vrk-kpa/opendata-solr/commit/42fbdf99bde2b65da58703bc3ed8183d1df83006))
+
 ## [1.0.2](https://github.com/vrk-kpa/opendata-solr/compare/v1.0.1...v1.0.2) (2022-05-09)
 
 
