@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/vrk-kpa/opendata-solr/compare/v1.1.1...v1.1.2) (2022-06-08)
+
+
+### Bug Fixes
+
+* **AV-1556:** Change schema fallback field type to avoid 32KiB limit ([ec2c280](https://github.com/vrk-kpa/opendata-solr/commit/ec2c2809f4b2750de3f4a6633619ab2857176f0d))
+
 ## [1.1.1](https://github.com/vrk-kpa/opendata-solr/compare/v1.1.0...v1.1.1) (2022-06-07)
 
 
