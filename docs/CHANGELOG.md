@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/vrk-kpa/opendata-solr/compare/v1.1.2...v1.1.3) (2022-06-08)
+
+
+### Bug Fixes
+
+* **AV-1556:** Disable indexing pipeline for fallback field type ([95772b3](https://github.com/vrk-kpa/opendata-solr/commit/95772b3b5f4c28ff4c9dbeabd8fef3616870fe1c))
+
 ## [1.1.2](https://github.com/vrk-kpa/opendata-solr/compare/v1.1.1...v1.1.2) (2022-06-08)
 
 
