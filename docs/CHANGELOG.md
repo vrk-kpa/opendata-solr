@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/vrk-kpa/opendata-solr/compare/v1.1.4...v1.1.5) (2022-06-23)
+
+
+### Bug Fixes
+
+* Merge pull request [#21](https://github.com/vrk-kpa/opendata-solr/issues/21) from vrk-kpa/revert-18-AV-1556_fix-fallback-field-type ([de778e6](https://github.com/vrk-kpa/opendata-solr/commit/de778e6a8756d55d0326a074a06d32d32bfe0155))
+
 ## [1.1.4](https://github.com/vrk-kpa/opendata-solr/compare/v1.1.3...v1.1.4) (2022-06-22)
 
 
